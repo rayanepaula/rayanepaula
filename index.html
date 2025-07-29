@@ -1,163 +1,3 @@
-</main>
-
-<!-- Chatbot Widget -->
-<button id="openChatbotBtn" style="position:fixed;bottom:32px;right:32px;z-index:1001;background:#463273;color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 2px 12px rgba(70,50,115,0.18);font-size:1.7rem;cursor:pointer;">💬</button>
-<div id="chatbotContainer" style="display:none;position:fixed;bottom:100px;right:32px;z-index:1002;background:#fff;border-radius:16px;box-shadow:0 4px 32px rgba(70,50,115,0.18);border:2px solid #463273;width:370px;max-width:95vw;">
-  <div style="background:#463273;color:#fff;padding:12px 16px;border-radius:16px 16px 0 0;font-weight:600;display:flex;align-items:center;justify-content:space-between;">
-    <span>Flash Info</span>
-    <button id="closeChatbotBtn" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">&times;</button>
-  </div>
-  <div id="chatbox" style="width:100%;height:180px;padding:12px;overflow-y:auto;font-family:Poppins,Arial,sans-serif;background:#f9f9f9;font-size:1rem;display:flex;flex-direction:column;"></div>
-  <div id="categories" style="margin:10px 0 0 0;">
-    <div id="topicsList" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;padding:16px 8px 10px 8px;">
-      <button class="topic-btn chatbot-btn" data-cat="basic">Basics</button>
-      <button class="topic-btn chatbot-btn" data-cat="experience">Experiences</button>
-      <button class="topic-btn chatbot-btn" data-cat="tools">Tools</button>
-      <button class="topic-btn chatbot-btn" data-cat="courses">Courses</button>
-      <button class="topic-btn chatbot-btn" data-cat="goals">Goals</button>
-      <button class="topic-btn chatbot-btn" data-cat="contact">Contact</button>
-    </div>
-  </div>
-  <div id="subcategories" style="display:none;margin-top:10px;">
-    <strong id="subcat-title" style="padding-left:8px;"></strong>
-    <div id="subcat-list" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:12px;padding:0 8px 0 8px;"></div>
-    <div style="display:flex;justify-content:center;margin:10px 0;">
-      <button id="backBtn" class="chatbot-btn">Back to topics</button>
-    </div>
-  </div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const openBtn = document.getElementById('openChatbotBtn');
-  const closeBtn = document.getElementById('closeChatbotBtn');
-  const chatbot = document.getElementById('chatbotContainer');
-  const chatbox = document.getElementById('chatbox');
-  const categoriesDiv = document.getElementById('categories');
-  const subcategoriesDiv = document.getElementById('subcategories');
-  const subcatTitle = document.getElementById('subcat-title');
-  const subcatList = document.getElementById('subcat-list');
-  const backBtn = document.getElementById('backBtn');
-  const topicsList = document.getElementById('topicsList');
-  let conversationState = null;
-  const data = {
-    basic: {
-      "Where are you based?": "I'm based in Montreal, Canada.",
-      "What languages do you speak?": "I spead Portuguese (native), English (Intermediate), and French (B2).",
-      "What is your current job?": "I'm a Business Architecture Analyst at Accenture."
-    },
-    experience: {
-      options: ["Concentrix", "Accenture"],
-      Concentrix: "At Concentrix, I advanced from customer service to Planning Analyst, optimizing workflows with Excel and KPIs.",
-      Accenture: "At Accenture, I work in SAP Security, automating tasks and creating efficient reporting macros."
-    },
-    tools: {
-      "What tools do you use?": "SAP, Power BI, Microsoft Excel (macros), SQL (learning), AI tools."
-    },
-    courses: {
-      "What courses have you done?": "AI data classification, SQL basics, Power BI, Google IT Support, HTML/CSS/JS."
-    },
-    goals: {
-      "What are your goals?": "Grow in Data & AI, build smarter automated solutions with impact."
-    }
-  };
-  function addMessage(text, sender) {
-    const msgDiv = document.createElement('div');
-    msgDiv.style.margin = '7px 0';
-    msgDiv.style.wordBreak = 'break-word';
-    msgDiv.style.padding = '7px 12px';
-    msgDiv.style.borderRadius = '12px';
-    msgDiv.style.maxWidth = '90%';
-    msgDiv.style.whiteSpace = 'pre-line';
-    msgDiv.style.display = 'inline-block';
-    msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
-    msgDiv.style.background = sender === 'user' ? '#e7e3f7' : '#f3f3f3';
-    msgDiv.style.color = sender === 'user' ? '#463273' : 'green';
-    msgDiv.style.fontWeight = sender === 'user' ? 'bold' : 'normal';
-    msgDiv.textContent = text;
-    chatbox.appendChild(msgDiv);
-    chatbox.scrollTop = chatbox.scrollHeight;
-  }
-  function showCategories() {
-    categoriesDiv.style.display = "block";
-    subcategoriesDiv.style.display = "none";
-    conversationState = null;
-  }
-  function showSubcategories(cat) {
-    subcatList.innerHTML = '';
-    subcatTitle.textContent = "Questions you can ask:";
-    if (cat === 'experience') {
-      subcatTitle.textContent = "Choose an experience:";
-      data.experience.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.textContent = opt;
-        btn.dataset.exp = opt;
-        btn.className = 'chatbot-btn exp-btn';
-        subcatList.appendChild(btn);
-      });
-    } else {
-      for (let question in data[cat]) {
-        const btn = document.createElement('button');
-        btn.textContent = question;
-        btn.dataset.question = question;
-        btn.className = 'chatbot-btn question-btn';
-        subcatList.appendChild(btn);
-      }
-    }
-    categoriesDiv.style.display = "none";
-    subcategoriesDiv.style.display = "block";
-    conversationState = cat;
-  }
-  topicsList.addEventListener('click', e => {
-    if (e.target.classList.contains('topic-btn')) {
-      const cat = e.target.dataset.cat;
-      if (cat === 'contact') {
-        subcatTitle.textContent = "Contact Options:";
-        subcatList.innerHTML = `
-          <a href="https://www.linkedin.com/in/rayanepaula" target="_blank" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">LinkedIn</a>
-          <a href="mailto:rayane.do.nascimento@accenture.com" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">Email</a>
-          <a href="tel:+1 (438) 728 6481" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">Phone</a>
-        `;
-        categoriesDiv.style.display = "none";
-        subcategoriesDiv.style.display = "block";
-        conversationState = 'contact';
-      } else {
-        showSubcategories(cat);
-      }
-    }
-  });
-  subcategoriesDiv.addEventListener('click', e => {
-    if(e.target.classList.contains('question-btn')) {
-      if (conversationState && conversationState !== 'experience') {
-        const question = e.target.dataset.question;
-        if(question) {
-          addMessage(question, 'user');
-          const ans = data[conversationState][question];
-          setTimeout(() => addMessage(ans, 'bot'), 400);
-        }
-      }
-    } else if(e.target.classList.contains('exp-btn')) {
-      if(conversationState === 'experience') {
-        const exp = e.target.dataset.exp;
-        addMessage(exp, 'user');
-        addMessage(data.experience[exp], 'bot');
-        setTimeout(() => {
-          addMessage("You can choose another topic or experience.", 'bot');
-          showCategories();
-        }, 700);
-      }
-    }
-  });
-  backBtn.addEventListener('click', showCategories);
-  openBtn.onclick = () => {
-    chatbot.style.display = 'block';
-    if (chatbox.childElementCount === 0) {
-      addMessage("Hi! 👋 I'm Rayane Bot. Please choose a topic below.", 'bot');
-    }
-    showCategories();
-  };
-  closeBtn.onclick = () => { chatbot.style.display = 'none'; };
-});
-</script>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -174,9 +14,56 @@ document.addEventListener('DOMContentLoaded', function() {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        .projeto-box {
+            width: 320px;
+            min-height: 320px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(70,50,115,0.07);
+            margin: 0 10px 20px 0;
+            padding: 18px 16px 16px 16px;
+            transition: box-shadow 0.2s;
+            height: 100%;
+        }
+        .projeto-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 10px;
+            justify-content: center;
+            align-items: stretch;
+        }
+        
+        /* Styles pour le chatbot */
+        .chatbot-btn {
+            background: #e7e3f7;
+            color: #463273;
+            border: none;
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .chatbot-btn:hover {
+            background: #d0c4f0;
+        }
+    </style>
 </head>
 
-</head>
 <body>
     <header style="position:sticky;top:0;z-index:100;background:#fff;box-shadow:0 2px 12px rgba(70,50,115,0.07);padding:0.3rem 0;min-height:44px;">
         <div class="interface" style="min-height:unset;padding:0 2vw;display:flex;align-items:center;gap:1.2rem;">
@@ -189,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li><a href="#home">Home</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#Contact">About</a></li>
+                    <li><a href="#experience">Experiences</a></li>
                 </ul>
             </nav>
             <div class="button-contact" style="margin-left:1.1rem;">
@@ -199,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </header>
+
     <main>
         <section class="topo-do-site" id="home" style="background: linear-gradient(70deg, #463273 0%, #b8a1e3 30%, #fbc2eb 70%, #f5d6ff 90%, #fff5fa 100%);">
             <div class="interface flex" style="align-items:center;gap:48px;flex-wrap:wrap;justify-content:center;">
@@ -208,14 +96,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="txt-topo-site" style="flex:1 1 320px;text-align:left;min-width:260px;">
                     <h1 style="color:#232323;text-align:left;">Get to Know Me</h1>
                     <p style="color:#232323;font-size:1.08rem;line-height:1.7;">
-                        Hi! I'm Rayane do Nascimento, a <b>Business Architecture Analyst at Accenture in Montreal</b>. I work with <b>SAP Security</b>, data analysis, and tools like <b>Power BI, Microsoft Excel</b>, and <b>SAP</b>. Currently, I’m expanding my skills in <b>SQL</b> and <b>AI</b>, with a strong interest in using data to build smarter, more efficient solutions. I’m passionate about turning complex information into real impact through technology.
+                        Hi! I'm Rayane do Nascimento, a <b>Business Architecture Analyst at Accenture in Montreal</b>. I work with <b>SAP Security</b>, data analysis, and tools like <b>Power BI, Microsoft Excel</b>, and <b>SAP</b>. Currently, I'm expanding my skills in <b>SQL</b> and <b>AI</b>, with a strong interest in using data to build smarter, more efficient solutions. I'm passionate about turning complex information into real impact through technology.
                     </p>
                 </div>
             </div>
         </section>
+
         <section class="habilidades" id="skills">
             <div class="interface">
-                <h2 class="titulo">My <span>Skills</span></h2>
+                <h2 class="titulo" style="margin-bottom:32px;">My <span>Skills</span></h2>
                 <div class="flex">
                     <div class="habilidades-box">
                         <i class="fas fa-database" title="Data & AI" style="color:#b8a1e3;font-size:2rem;"></i>
@@ -249,90 +138,238 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </section>
+
         <section class="projetos" id="projects">
             <div class="interface">
                 <h2 class="titulo" style="margin-bottom:32px;">My <span>Projects</span></h2>
                 <div class="flex">
                     <a href="index_generator.html" target="_blank" rel="noopener" class="projeto-link">
                         <div class="projeto-box">
-                            <alt="Project 1" loading="lazy">
                             <h3>Project 1</h3>
                             <p>Simple project in HTML, CSS, and JavaScript to generate secure passwords with different criteria.</p>
                         </div>
                     </a>
                     <div class="projeto-box">
-                        Project 1
+                        <h3>Project 2</h3>
                         <p>Short description of project 2. <a href="https://github.com/seuusuario/projeto2" target="_blank" rel="noopener">View on GitHub</a></p>
                     </div>
                 </div>
             </div>
         </section>
-        <style>
-    .projeto-box {
-        width: 320px;
-        min-height: 320px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        background: #fff;
-        border-radius: 14px;
-        box-shadow: 0 2px 12px rgba(70,50,115,0.07);
-        margin: 0 10px 20px 0;
-        padding: 18px 16px 16px 16px;
-        transition: box-shadow 0.2s;
-        height: 100%;
-    }
-    .projeto-link {
-        display: block;
-        text-decoration: none;
-        color: inherit;
-        height: 100%;
-    }
-    .flex {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px 10px;
-        justify-content: center;
-        align-items: stretch;
-    }
-                </div>
-            </div>
-        </section>
-        <section class="sobre" id="about">
-            <div class="interface">
-                <div class="txt-sobre" style="max-width:600px;margin:0 auto;text-align:center;">
-                    <h2>Pleased to meet you, I'm <span>Rayane Paula!</span></h2>
-                    <p>I'm passionate about technology, with experience in web development and Salesforce. I always strive to innovate and deliver high-impact results for my clients, combining creativity, technical skill, and dedication.</p>
-                    <div class="redes-sociais" style="justify-content:center;display:flex;gap:1.5rem;">
-                        <a href="https://www.linkedin.com/in/rayanepaula" target="_blank" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="https://github.com/rayanepaula" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
 
+        <section class="experiencias" id="experience">
+            <div class="interface">
+                <h2 class="titulo" style="margin-bottom:32px;">My <span>Experiences</span></h2>
+                <div class="flex">
+                    <div class="projeto-box">
+                        <h3>🔐 SAP Security Analyst</h3>
+                        <p><strong>Hydro Quebec, Montreal QC</strong><br><em>May 2024 – Present (Final date 2025-10-29)</em></p>
+                        <ul style="text-align:left;margin-left:16px;">
+                            <li>User & role management in SAP, Portal, CRM</li>
+                            <li>Risk analysis reports and GRC support</li>
+                            <li>Access control collaboration with business teams</li>
+                            <li>Administer SAP SSO and Central User Admin (CUA)</li>
+                        </ul>
+                    </div>
+
+                    <div class="projeto-box">
+                        <h3>📊 Full Planning Analyst</h3>
+                        <p><strong>Concentrix, Brazil</strong><br><em>Aug 2021 – Jul 2022</em></p>
+                        <ul style="text-align:left;margin-left:16px;">
+                            <li>Analyzed operational and financial data</li>
+                            <li>Developed action plans to improve SLA</li>
+                            <li>Used KPIs to improve department performance</li>
+                            <li>Created management reports for decisions</li>
+                        </ul>
+                    </div>
+
+                    <div class="projeto-box">
+                        <h3>⏱ Real Time Analyst</h3>
+                        <p><strong>Concentrix, Brazil</strong><br><em>Dec 2020 – Jul 2021</em></p>
+                        <ul style="text-align:left;margin-left:16px;">
+                            <li>Managed real-time metrics and KPIs</li>
+                            <li>Created performance reports & strategies</li>
+                            <li>Ensured communication with ops and client</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="contato" id="contact">
-            <div class="interface">
-                <h2 class="titulo">Get in <span>Touch</span></h2>
-                <form action="mailto:youremail@domain.com" method="POST" enctype="text/plain" autocomplete="on">
-                    <label for="nome">Name</label>
-                    <input type="text" id="nome" name="nome" placeholder="Your name" required>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Your email" required>
-                    <label for="mensagem">Message</label>
-                    <textarea id="mensagem" name="mensagem" placeholder="Your message" required></textarea>
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        </section>
+    </main>
 
-    <footer>
+    <footer style="background: #463273; color: white; padding: 20px 0; text-align: center; margin-top: 40px;">
         <div class="interface">
             <p>&copy; 2025 Rayane Paula. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Chatbot Widget -->
+    <button id="openChatbotBtn" style="position:fixed;bottom:32px;right:32px;z-index:1001;background:#463273;color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 2px 12px rgba(70,50,115,0.18);font-size:1.7rem;cursor:pointer;">💬</button>
+    <div id="chatbotContainer" style="display:none;position:fixed;bottom:100px;right:32px;z-index:1002;background:#fff;border-radius:16px;box-shadow:0 4px 32px rgba(70,50,115,0.18);border:2px solid #463273;width:370px;max-width:95vw;">
+        <div style="background:#463273;color:#fff;padding:12px 16px;border-radius:16px 16px 0 0;font-weight:600;display:flex;align-items:center;justify-content:space-between;">
+            <span>Flash Info</span>
+            <button id="closeChatbotBtn" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">&times;</button>
+        </div>
+        <div id="chatbox" style="width:100%;height:180px;padding:12px;overflow-y:auto;font-family:Poppins,Arial,sans-serif;background:#f9f9f9;font-size:1rem;display:flex;flex-direction:column;"></div>
+        <div id="categories" style="margin:10px 0 0 0;">
+            <div id="topicsList" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;padding:16px 8px 10px 8px;">
+                <button class="topic-btn chatbot-btn" data-cat="basic">Basics</button>
+                <button class="topic-btn chatbot-btn" data-cat="experience">Experiences</button>
+                <button class="topic-btn chatbot-btn" data-cat="tools">Tools</button>
+                <button class="topic-btn chatbot-btn" data-cat="courses">Courses</button>
+                <button class="topic-btn chatbot-btn" data-cat="goals">Goals</button>
+                <button class="topic-btn chatbot-btn" data-cat="contact">Contact</button>
+            </div>
+        </div>
+        <div id="subcategories" style="display:none;margin-top:10px;">
+            <strong id="subcat-title" style="padding-left:8px;"></strong>
+            <div id="subcat-list" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:12px;padding:0 8px 0 8px;"></div>
+            <div style="display:flex;justify-content:center;margin:10px 0;">
+                <button id="backBtn" class="chatbot-btn">Back to topics</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const openBtn = document.getElementById('openChatbotBtn');
+        const closeBtn = document.getElementById('closeChatbotBtn');
+        const chatbot = document.getElementById('chatbotContainer');
+        const chatbox = document.getElementById('chatbox');
+        const categoriesDiv = document.getElementById('categories');
+        const subcategoriesDiv = document.getElementById('subcategories');
+        const subcatTitle = document.getElementById('subcat-title');
+        const subcatList = document.getElementById('subcat-list');
+        const backBtn = document.getElementById('backBtn');
+        const topicsList = document.getElementById('topicsList');
+        let conversationState = null;
+
+        const data = {
+            basic: {
+                "Where are you based?": "I'm based in Montreal, Canada.",
+                "What languages do you speak?": "I speak Portuguese (native), English (Intermediate), and French (B2).",
+                "What is your current job?": "I'm a Business Architecture Analyst at Accenture."
+            },
+            experience: {
+                options: ["Concentrix", "Accenture"],
+                Concentrix: "At Concentrix, I advanced from customer service to Planning Analyst, optimizing workflows with Excel and KPIs.",
+                Accenture: "At Accenture, I work in SAP Security, automating tasks and creating efficient reporting macros."
+            },
+            tools: {
+                "What tools do you use?": "SAP, Power BI, Microsoft Excel (macros), SQL (learning), AI tools."
+            },
+            courses: {
+                "What courses have you done?": "AI data classification, SQL basics, Power BI, Google IT Support, HTML/CSS/JS."
+            },
+            goals: {
+                "What are your goals?": "Grow in Data & AI, build smarter automated solutions with impact."
+            }
+        };
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.style.margin = '7px 0';
+            msgDiv.style.wordBreak = 'break-word';
+            msgDiv.style.padding = '7px 12px';
+            msgDiv.style.borderRadius = '12px';
+            msgDiv.style.maxWidth = '90%';
+            msgDiv.style.whiteSpace = 'pre-line';
+            msgDiv.style.display = 'inline-block';
+            msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+            msgDiv.style.background = sender === 'user' ? '#e7e3f7' : '#f3f3f3';
+            msgDiv.style.color = sender === 'user' ? '#463273' : 'green';
+            msgDiv.style.fontWeight = sender === 'user' ? 'bold' : 'normal';
+            msgDiv.textContent = text;
+            chatbox.appendChild(msgDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function showCategories() {
+            categoriesDiv.style.display = "block";
+            subcategoriesDiv.style.display = "none";
+            conversationState = null;
+        }
+
+        function showSubcategories(cat) {
+            subcatList.innerHTML = '';
+            subcatTitle.textContent = "Questions you can ask:";
+            if (cat === 'experience') {
+                subcatTitle.textContent = "Choose an experience:";
+                data.experience.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.textContent = opt;
+                    btn.dataset.exp = opt;
+                    btn.className = 'chatbot-btn exp-btn';
+                    subcatList.appendChild(btn);
+                });
+            } else {
+                for (let question in data[cat]) {
+                    const btn = document.createElement('button');
+                    btn.textContent = question;
+                    btn.dataset.question = question;
+                    btn.className = 'chatbot-btn question-btn';
+                    subcatList.appendChild(btn);
+                }
+            }
+            categoriesDiv.style.display = "none";
+            subcategoriesDiv.style.display = "block";
+            conversationState = cat;
+        }
+
+        topicsList.addEventListener('click', e => {
+            if (e.target.classList.contains('topic-btn')) {
+                const cat = e.target.dataset.cat;
+                if (cat === 'contact') {
+                    subcatTitle.textContent = "Contact Options:";
+                    subcatList.innerHTML = `
+                        <a href="https://www.linkedin.com/in/rayanepaula" target="_blank" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">LinkedIn</a>
+                        <a href="mailto:rayane.do.nascimento@accenture.com" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">Email</a>
+                        <a href="tel:+1 (438) 728 6481" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">Phone</a>
+                    `;
+                    categoriesDiv.style.display = "none";
+                    subcategoriesDiv.style.display = "block";
+                    conversationState = 'contact';
+                } else {
+                    showSubcategories(cat);
+                }
+            }
+        });
+
+        subcategoriesDiv.addEventListener('click', e => {
+            if(e.target.classList.contains('question-btn')) {
+                if (conversationState && conversationState !== 'experience') {
+                    const question = e.target.dataset.question;
+                    if(question) {
+                        addMessage(question, 'user');
+                        const ans = data[conversationState][question];
+                        setTimeout(() => addMessage(ans, 'bot'), 400);
+                    }
+                }
+            } else if(e.target.classList.contains('exp-btn')) {
+                if(conversationState === 'experience') {
+                    const exp = e.target.dataset.exp;
+                    addMessage(exp, 'user');
+                    addMessage(data.experience[exp], 'bot');
+                    setTimeout(() => {
+                        addMessage("You can choose another topic or experience.", 'bot');
+                        showCategories();
+                    }, 700);
+                }
+            }
+        });
+
+        backBtn.addEventListener('click', showCategories);
+
+        openBtn.onclick = () => {
+            chatbot.style.display = 'block';
+            if (chatbox.childElementCount === 0) {
+                addMessage("Hi! 👋 I'm Rayane Bot. Please choose a topic below.", 'bot');
+            }
+            showCategories();
+        };
+
+        closeBtn.onclick = () => { chatbot.style.display = 'none'; };
+    });
+    </script>
 </body>
 </html>
