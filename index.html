@@ -96,8 +96,9 @@
                 <div class="txt-topo-site" style="flex:1 1 320px;text-align:left;min-width:260px;">
                     <h1 style="color:#232323;text-align:left;">Get to Know Me</h1>
                     <p style="color:#232323;font-size:1.08rem;line-height:1.7;">
-                        Hi! I'm Rayane do Nascimento, a <b>Business Architecture Analyst at Accenture in Montreal</b>. I work with <b>SAP Security</b>, data analysis, and tools like <b>Power BI, Microsoft Excel</b>, and <b>SAP</b>. Currently, I'm expanding my skills in <b>SQL</b> and <b>AI</b>, with a strong interest in using data to build smarter, more efficient solutions. I'm passionate about turning complex information into real impact through technology.
-                    </p>
+                        <b>Hi! I'm Rayane do Nascimento, </b>a Business Architecture Analyst at Accenture in Montreal.</b>
+                        I work with <b>SAP Security</b>, managing user access in SAP, Enterprise Portal, and CRM systems. I’ve also created Excel macros to automate tasks and help the team work more efficiently.
+                        <br><br>Right now, I’m learning more about <b>data analysis, SQL, Power BI, Microsoft Copilot, and AI Agents</b>. I’m very interested in how AI can be used to build smarter and faster solutions. I enjoy using technology to solve problems and turn complex ideas into real results.</p>
                 </div>
             </div>
         </section>
@@ -151,7 +152,7 @@
                     </a>
                     <div class="projeto-box">
                         <h3>Project 2</h3>
-                        <p>Short description of project 2. <a href="https://github.com/seuusuario/projeto2" target="_blank" rel="noopener">View on GitHub</a></p>
+                        <p>⏳ Coming soon <a href="#" target="_blank" rel="noopener"></a></p>
                     </div>
                 </div>
             </div>
@@ -160,10 +161,10 @@
         <section class="experiencias" id="experience">
             <div class="interface">
                 <h2 class="titulo" style="margin-bottom:32px;">My <span>Experiences</span></h2>
-                <div class="flex">
-                    <div class="projeto-box">
+                <div class="experiencia-container">
+                    <div class="experiencia-item">
                         <h3>🔐 SAP Security Analyst</h3>
-                        <p><strong>Hydro Quebec, Montreal QC</strong><br><em>May 2024 – Present (Final date 2025-10-29)</em></p>
+                        <p><strong>Hydro Quebec, Montreal QC </strong><br><em> May 2024 – October 29, 2025 </em></p>
                         <ul style="text-align:left;margin-left:16px;">
                             <li>User & role management in SAP, Portal, CRM</li>
                             <li>Risk analysis reports and GRC support</li>
@@ -172,7 +173,7 @@
                         </ul>
                     </div>
 
-                    <div class="projeto-box">
+                    <div class="experiencia-item">
                         <h3>📊 Full Planning Analyst</h3>
                         <p><strong>Concentrix, Brazil</strong><br><em>Aug 2021 – Jul 2022</em></p>
                         <ul style="text-align:left;margin-left:16px;">
@@ -183,9 +184,9 @@
                         </ul>
                     </div>
 
-                    <div class="projeto-box">
+                    <div class="experiencia-item">
                         <h3>⏱ Real Time Analyst</h3>
-                        <p><strong>Concentrix, Brazil</strong><br><em>Dec 2020 – Jul 2021</em></p>
+                        <p><strong>Concentrix, Brazil<br></strong><em>Dec 2020 – Jul 2021</em></p>
                         <ul style="text-align:left;margin-left:16px;">
                             <li>Managed real-time metrics and KPIs</li>
                             <li>Created performance reports & strategies</li>
@@ -199,177 +200,177 @@
 
     <footer style="background: #463273; color: white; padding: 20px 0; text-align: center; margin-top: 40px;">
         <div class="interface">
-            <p>&copy; 2025 Rayane Paula. All rights reserved.</p>
+            <p>&copy; 2025 Rayane Paula do Nascimento. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Chatbot Widget -->
     <button id="openChatbotBtn" style="position:fixed;bottom:32px;right:32px;z-index:1001;background:#463273;color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 2px 12px rgba(70,50,115,0.18);font-size:1.7rem;cursor:pointer;">💬</button>
     <div id="chatbotContainer" style="display:none;position:fixed;bottom:100px;right:32px;z-index:1002;background:#fff;border-radius:16px;box-shadow:0 4px 32px rgba(70,50,115,0.18);border:2px solid #463273;width:370px;max-width:95vw;">
-        <div style="background:#463273;color:#fff;padding:12px 16px;border-radius:16px 16px 0 0;font-weight:600;display:flex;align-items:center;justify-content:space-between;">
-            <span>Flash Info</span>
-            <button id="closeChatbotBtn" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">&times;</button>
-        </div>
-        <div id="chatbox" style="width:100%;height:180px;padding:12px;overflow-y:auto;font-family:Poppins,Arial,sans-serif;background:#f9f9f9;font-size:1rem;display:flex;flex-direction:column;"></div>
-        <div id="categories" style="margin:10px 0 0 0;">
-            <div id="topicsList" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;padding:16px 8px 10px 8px;">
-                <button class="topic-btn chatbot-btn" data-cat="basic">Basics</button>
-                <button class="topic-btn chatbot-btn" data-cat="experience">Experiences</button>
-                <button class="topic-btn chatbot-btn" data-cat="tools">Tools</button>
-                <button class="topic-btn chatbot-btn" data-cat="courses">Courses</button>
-                <button class="topic-btn chatbot-btn" data-cat="goals">Goals</button>
-                <button class="topic-btn chatbot-btn" data-cat="contact">Contact</button>
-            </div>
-        </div>
-        <div id="subcategories" style="display:none;margin-top:10px;">
-            <strong id="subcat-title" style="padding-left:8px;"></strong>
-            <div id="subcat-list" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:12px;padding:0 8px 0 8px;"></div>
-            <div style="display:flex;justify-content:center;margin:10px 0;">
-                <button id="backBtn" class="chatbot-btn">Back to topics</button>
-            </div>
+    <div style="background:#463273;color:#fff;padding:12px 16px;border-radius:16px 16px 0 0;font-weight:600;display:flex;align-items:center;justify-content:space-between;">
+        <span>Flash Info</span>
+        <button id="closeChatbotBtn" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">&times;</button>
+    </div>
+    <div id="chatbox" style="width:100%;height:180px;padding:12px;overflow-y:auto;font-family:Poppins,Arial,sans-serif;background:#f9f9f9;font-size:1rem;display:flex;flex-direction:column;"></div>
+    <div id="categories" style="margin:10px 0 0 0;">
+        <!-- Removido o style inline do grid -->
+        <div id="topicsList">
+            <button class="topic-btn chatbot-btn" data-cat="basic">Basics</button>
+            <button class="topic-btn chatbot-btn" data-cat="experience">Experiences</button>
+            <button class="topic-btn chatbot-btn" data-cat="tools">Tools</button>
+            <button class="topic-btn chatbot-btn" data-cat="courses">Courses</button>
+            <button class="topic-btn chatbot-btn" data-cat="goals">Goals</button>
+            <button class="topic-btn chatbot-btn" data-cat="contact">Contact</button>
         </div>
     </div>
+    <div id="subcategories" style="display:none;margin-top:10px;">
+    <div style="text-align:center;padding:0 8px;">
+        <strong id="subcat-title"></strong>
+    </div>
+    <div id="subcat-list"></div>
+    <div style="display:flex;justify-content:center;margin:8px 0;">
+        <button id="backBtn" class="chatbot-btn">Back to topics</button>
+    </div>
+</div>
+</div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const openBtn = document.getElementById('openChatbotBtn');
-        const closeBtn = document.getElementById('closeChatbotBtn');
-        const chatbot = document.getElementById('chatbotContainer');
-        const chatbox = document.getElementById('chatbox');
-        const categoriesDiv = document.getElementById('categories');
-        const subcategoriesDiv = document.getElementById('subcategories');
-        const subcatTitle = document.getElementById('subcat-title');
-        const subcatList = document.getElementById('subcat-list');
-        const backBtn = document.getElementById('backBtn');
-        const topicsList = document.getElementById('topicsList');
-        let conversationState = null;
+document.addEventListener('DOMContentLoaded', function() {
+  const openBtn = document.getElementById('openChatbotBtn');
+  const closeBtn = document.getElementById('closeChatbotBtn');
+  const chatbot = document.getElementById('chatbotContainer');
+  const chatbox = document.getElementById('chatbox');
+  const categoriesDiv = document.getElementById('categories');
+  const subcategoriesDiv = document.getElementById('subcategories');
+  const subcatTitle = document.getElementById('subcat-title');
+  const subcatList = document.getElementById('subcat-list');
+  const backBtn = document.getElementById('backBtn');
+  const topicsList = document.getElementById('topicsList');
+  let conversationState = null;
 
-        const data = {
-            basic: {
-                "Where are you based?": "I'm based in Montreal, Canada.",
-                "What languages do you speak?": "I speak Portuguese (native), English (Intermediate), and French (B2).",
-                "What is your current job?": "I'm a Business Architecture Analyst at Accenture."
-            },
-            experience: {
-                options: ["Concentrix", "Accenture"],
-                Concentrix: "At Concentrix, I advanced from customer service to Planning Analyst, optimizing workflows with Excel and KPIs.",
-                Accenture: "At Accenture, I work in SAP Security, automating tasks and creating efficient reporting macros."
-            },
-            tools: {
-                "What tools do you use?": "SAP, Power BI, Microsoft Excel (macros), SQL (learning), AI tools."
-            },
-            courses: {
-                "What courses have you done?": "AI data classification, SQL basics, Power BI, Google IT Support, HTML/CSS/JS."
-            },
-            goals: {
-                "What are your goals?": "Grow in Data & AI, build smarter automated solutions with impact."
-            }
-        };
+  const data = {
+    basic: {
+      "Where are you based?": "I'm based in Montreal, Canada.",
+      "What languages do you speak?": "I speak Portuguese (native), English (Intermediate), and French (B2).",
+      "What is your current job?": "I'm a Business Architecture Analyst at Accenture."
+    },
+    experience: {
+      options: ["Concentrix", "Accenture"],
+      Concentrix: "I started my journey at Accenture as a Customer Service Agent, and thanks to my performance, I was soon moved to a different team to help create menus for a specific department. While there, I noticed the process was repetitive — each menu was followed by updates in an Excel document. After analyzing the workflow, I realized the entire task could be done directly in Excel, which doubled productivity. I learned how to do it, shared the solution with my team, and the process was completely updated. As a result, I was promoted to Real‑Time Analyst, where I monitored live KPIs and metrics, made real‑time adjustments to improve performance, and optimized processes using Excel automations. This led to another promotion to Workforce Planning Analyst, where I analyzed data, created agent schedules, tracked performance metrics, and built decision‑support reports for leadership.",
+      Accenture: "I'm responsible for administering user access in SAP ECC, Enterprise Portal, and CRM, ensuring secure and compliant access across systems. I support SAP implementation projects by performing security reviews and risk analyses, and work closely with business teams to validate access controls. I manage Firefighter ID assignments through SAP GRC Access Control and handle administrative tasks on the SAP Marketplace, including OSS user creation, developer key requests, and S-User management. I generate risk analysis reports, analyze SU53 errors, and conduct trace analysis (ST01) to troubleshoot authorization issues. Additionally, I support compliance efforts by developing user access documentation and delivering training sessions. I also manage SAP Single Sign-On (SSO) and Central User Administration (CUA), contributing to streamlined identity management and system integration."
+    },
+    tools: {
+      "What tools do you use?": "Experienced with SAP (User Access Management, GRC, SSO, CUA), Power BI for building interactive dashboards and data visualizations, and Microsoft Excel, including advanced use of macros (VBA) for process automation. Currently learning SQL to strengthen data analysis and reporting capabilities. Actively exploring and applying AI tools to enhance productivity and drive innovation in business processes."
+    },
+    courses: {
+  "What courses have you done?": 
+    "• Automating Data Classification and Labeling for AI – BigID University\n" +
+    "• Track 1: SQL Basics – Skillsoft\n" +
+    "• PL-300: Preparing Data for Visualizations in Power BI – Skillsoft\n" +
+    "• Microsoft Excel – Learned through hands-on experience across multiple roles\n" +
+    "• HTML, CSS, and JavaScript – Self-taught via YouTube and personal curiosity\n" +
+    "• Artificial Intelligence & Agents – Ongoing self-study and experimentation"
+},
+    goals: {
+      "What are your goals?": "I am a highly responsible and professional individual, eager to be part of a project where I can grow, learn, and contribute meaningfully. I’m genuinely passionate about Data & AI, but I’m also open to exploring other areas — for me, the most important thing is to learn continuously and deliver impactful solutions. I adapt quickly, learn fast, and am always ready to take on new challenges that push me forward. I’m looking for a role where I can apply my skills, learn from experienced professionals, and contribute to innovative projects that make a difference."
+    }
+  };
 
-        function addMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            msgDiv.style.margin = '7px 0';
-            msgDiv.style.wordBreak = 'break-word';
-            msgDiv.style.padding = '7px 12px';
-            msgDiv.style.borderRadius = '12px';
-            msgDiv.style.maxWidth = '90%';
-            msgDiv.style.whiteSpace = 'pre-line';
-            msgDiv.style.display = 'inline-block';
-            msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
-            msgDiv.style.background = sender === 'user' ? '#e7e3f7' : '#f3f3f3';
-            msgDiv.style.color = sender === 'user' ? '#463273' : 'green';
-            msgDiv.style.fontWeight = sender === 'user' ? 'bold' : 'normal';
-            msgDiv.textContent = text;
-            chatbox.appendChild(msgDiv);
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
+  function addMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.style.margin = '7px 0';
+    msgDiv.style.wordBreak = 'break-word';
+    msgDiv.style.padding = '7px 12px';
+    msgDiv.style.borderRadius = '12px';
+    msgDiv.style.maxWidth = '90%';
+    msgDiv.style.whiteSpace = 'pre-line';
+    msgDiv.style.display = 'inline-block';
+    msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+    msgDiv.style.background = sender === 'user' ? '#e7e3f7' : '#f3f3f3';
+    msgDiv.style.color = sender === 'user' ? '#463273' : 'green';
+    msgDiv.style.fontWeight = sender === 'user' ? 'bold' : 'normal';
+    msgDiv.textContent = text;
+    chatbox.appendChild(msgDiv);
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
 
-        function showCategories() {
-            categoriesDiv.style.display = "block";
-            subcategoriesDiv.style.display = "none";
-            conversationState = null;
-        }
+  function showCategories() {
+    categoriesDiv.style.display = "block";
+    subcategoriesDiv.style.display = "none";
+    conversationState = null;
+  }
 
-        function showSubcategories(cat) {
-            subcatList.innerHTML = '';
-            subcatTitle.textContent = "Questions you can ask:";
-            if (cat === 'experience') {
-                subcatTitle.textContent = "Choose an experience:";
-                data.experience.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.textContent = opt;
-                    btn.dataset.exp = opt;
-                    btn.className = 'chatbot-btn exp-btn';
-                    subcatList.appendChild(btn);
-                });
-            } else {
-                for (let question in data[cat]) {
-                    const btn = document.createElement('button');
-                    btn.textContent = question;
-                    btn.dataset.question = question;
-                    btn.className = 'chatbot-btn question-btn';
-                    subcatList.appendChild(btn);
-                }
-            }
-            categoriesDiv.style.display = "none";
-            subcategoriesDiv.style.display = "block";
-            conversationState = cat;
-        }
+  function showSubcategories(cat) {
+    subcatList.innerHTML = '';
+    subcatTitle.textContent = cat === 'experience' ? "Choose an experience:" : "Questions you can ask:";
+    if (cat === 'experience') {
+      data.experience.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.dataset.exp = opt;
+        btn.className = 'chatbot-btn exp-btn';
+        subcatList.appendChild(btn);
+      });
+    } else {
+      for (let question in data[cat]) {
+        const btn = document.createElement('button');
+        btn.textContent = question;
+        btn.dataset.question = question;
+        btn.className = 'chatbot-btn question-btn';
+        subcatList.appendChild(btn);
+      }
+    }
+    categoriesDiv.style.display = "none";
+    subcategoriesDiv.style.display = "block";
+    conversationState = cat;
+  }
 
-        topicsList.addEventListener('click', e => {
-            if (e.target.classList.contains('topic-btn')) {
-                const cat = e.target.dataset.cat;
-                if (cat === 'contact') {
-                    subcatTitle.textContent = "Contact Options:";
-                    subcatList.innerHTML = `
-                        <a href="https://www.linkedin.com/in/rayanepaula" target="_blank" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">LinkedIn</a>
-                        <a href="mailto:rayane.do.nascimento@accenture.com" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">Email</a>
-                        <a href="tel:+1 (438) 728 6481" style="text-decoration:none;text-align:center;background:#e7e3f7;color:#463273;padding:6px;border-radius:6px;margin-bottom:6px;display:block;">Phone</a>
-                    `;
-                    categoriesDiv.style.display = "none";
-                    subcategoriesDiv.style.display = "block";
-                    conversationState = 'contact';
-                } else {
-                    showSubcategories(cat);
-                }
-            }
-        });
+  topicsList.addEventListener('click', e => {
+    if (e.target.classList.contains('topic-btn')) {
+      const cat = e.target.dataset.cat;
+      if (cat === 'contact') {
+        subcatTitle.textContent = "Contact Options:";
+        subcatList.innerHTML = `
+          <a href="https://www.linkedin.com/in/rayanepaula" target="_blank" style="...">LinkedIn</a>
+          <a href="mailto:rayane.do.nascimento@accenture.com" style="...">Email</a>
+          <a href="tel:+1 (438) 728 6481" style="...">Phone</a>
+        `;
+        categoriesDiv.style.display = "none";
+        subcategoriesDiv.style.display = "block";
+        conversationState = 'contact';
+      } else {
+        showSubcategories(cat);
+      }
+    }
+  });
 
-        subcategoriesDiv.addEventListener('click', e => {
-            if(e.target.classList.contains('question-btn')) {
-                if (conversationState && conversationState !== 'experience') {
-                    const question = e.target.dataset.question;
-                    if(question) {
-                        addMessage(question, 'user');
-                        const ans = data[conversationState][question];
-                        setTimeout(() => addMessage(ans, 'bot'), 400);
-                    }
-                }
-            } else if(e.target.classList.contains('exp-btn')) {
-                if(conversationState === 'experience') {
-                    const exp = e.target.dataset.exp;
-                    addMessage(exp, 'user');
-                    addMessage(data.experience[exp], 'bot');
-                    setTimeout(() => {
-                        addMessage("You can choose another topic or experience.", 'bot');
-                        showCategories();
-                    }, 700);
-                }
-            }
-        });
+  subcategoriesDiv.addEventListener('click', e => {
+    if (e.target.classList.contains('question-btn') && conversationState && conversationState !== 'experience') {
+      const question = e.target.dataset.question;
+      addMessage(question, 'user');
+      setTimeout(() => addMessage(data[conversationState][question], 'bot'), 400);
+    } else if (e.target.classList.contains('exp-btn') && conversationState === 'experience') {
+      const exp = e.target.dataset.exp;
+      addMessage(exp, 'user');
+      addMessage(data.experience[exp], 'bot');
+      setTimeout(() => {
+        addMessage("You can choose another topic or experience.", 'bot');
+        showCategories();
+      }, 700);
+    }
+  });
 
-        backBtn.addEventListener('click', showCategories);
+  backBtn.addEventListener('click', showCategories);
 
-        openBtn.onclick = () => {
-            chatbot.style.display = 'block';
-            if (chatbox.childElementCount === 0) {
-                addMessage("Hi! 👋 I'm Rayane Bot. Please choose a topic below.", 'bot');
-            }
-            showCategories();
-        };
+  openBtn.onclick = () => {
+    chatbot.style.display = 'block';
+    if (chatbox.childElementCount === 0) addMessage("Hi! 👋 I'm Rayane Bot. Please choose a topic below.", 'bot');
+    showCategories();
+  };
 
-        closeBtn.onclick = () => { chatbot.style.display = 'none'; };
-    });
-    </script>
-</body>
-</html>
+  closeBtn.onclick = () => { chatbot.style.display = 'none'; };
+});
+</script>
+
+  </body>
+  </html>
